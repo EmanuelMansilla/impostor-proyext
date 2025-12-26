@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Dark space theme */
+    --background: 240 20% 4%;
+    --foreground: 0 0% 95%;
+
+    --card: 240 15% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 240 15% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Impostor red */
+    --primary: 0 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Dark gray surfaces */
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 55%;
+
+    /* Teal accent for safe players */
+    --accent: 175 70% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 18%;
+    --input: 240 10% 15%;
+    --ring: 0 85% 55%;
+
+    --radius: 1rem;
+
+    /* Custom game colors */
+    --impostor: 0 85% 55%;
+    --impostor-glow: 0 85% 45%;
+    --safe: 175 70% 45%;
+    --safe-glow: 175 70% 35%;
+    --warning: 45 90% 55%;
+    
+    /* Gradients */
+    --gradient-bg: linear-gradient(135deg, hsl(240 20% 4%) 0%, hsl(260 25% 8%) 50%, hsl(240 20% 6%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(240 15% 10%) 0%, hsl(240 15% 6%) 100%);
+    --gradient-impostor: linear-gradient(135deg, hsl(0 85% 55%) 0%, hsl(350 80% 45%) 100%);
+    --gradient-safe: linear-gradient(135deg, hsl(175 70% 45%) 0%, hsl(165 65% 35%) 100%);
+
+    /* Shadows */
+    --shadow-card: 0 8px 32px -8px hsl(0 0% 0% / 0.5);
+    --shadow-glow-red: 0 0 40px hsl(0 85% 55% / 0.3);
+    --shadow-glow-teal: 0 0 40px hsl(175 70% 45% / 0.3);
+  }
+
+  .dark {
+    --background: 240 20% 4%;
+    --foreground: 0 0% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: 'Orbitron', monospace;
+  }
+
+  .game-card {
+    @apply rounded-2xl p-6 relative overflow-hidden;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .game-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, hsl(var(--primary) / 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .glow-red {
+    box-shadow: var(--shadow-glow-red);
+  }
+
+  .glow-teal {
+    box-shadow: var(--shadow-glow-teal);
+  }
+
+  .text-impostor {
+    color: hsl(var(--impostor));
+    text-shadow: 0 0 20px hsl(var(--impostor) / 0.5);
+  }
+
+  .text-safe {
+    color: hsl(var(--safe));
+    text-shadow: 0 0 20px hsl(var(--safe) / 0.5);
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 10px hsl(var(--primary) / 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 25px hsl(var(--primary) / 0.6));
+  }
+}
+
+@keyframes countdown {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.animate-countdown {
+  animation: countdown 1s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
